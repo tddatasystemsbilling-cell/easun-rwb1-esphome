@@ -58,7 +58,7 @@ bool RWB1BLE::parse_device(const espbt::ESPBTDevice &device) {
   if (this->state() != espbt::ClientState::IDLE)
     return false;
   const auto &name = device.get_name();
-  if (name.rfind("SSL_", 0) != 0)
+    if (name.size() < 4 || std::memcmp(name.c_str(), "SSL_", 4) != 0)
     return false;
   this->set_address(device.address_uint64());
   this->set_remote_addr_type(device.get_address_type());
